@@ -17,21 +17,26 @@ class BookFinder extends Component {
       const bookData = response.data.items
         .map(book => {
           const bookInfo = { ...book.volumeInfo };
+          const indentifier = [...bookInfo.industryIdentifiers];
           const url = bookInfo.infoLink;
-          const authors = bookInfo.authors.reduce((authors, author, index) => {
-            return index === 0
-              ? authors + author
-              : authors + ', ' + author;
-          }, '')
+          const authors = typeof bookInfo.authors !== 'undefined'
+            ? bookInfo.authors.reduce((authors, author, index) => {
+              return index === 0
+                ? authors + author
+                : authors + ', ' + author;
+            }, '')
+            : 'N.A.';
           const imgLink = bookInfo.imageLinks.thumbnail;
           const publisher = bookInfo.publisher;
           const title = bookInfo.title;
+          const key = indentifier[0].type + indentifier[0].identifier;
           return {
             bookUrl: url,
             authors: authors,
             imageUrl: imgLink,
             publisher: publisher,
-            title: title
+            title: title,
+            key: key
           };
         });
       this.setState({
@@ -55,7 +60,7 @@ class BookFinder extends Component {
           value={this.state.searchQuery}
           onChange={(e) => this.setSearchQuery(e)}
         />
-        <ResultsArea />
+        <ResultsArea booksData={this.state.bookResults} />
       </Aux>
     );
   }
