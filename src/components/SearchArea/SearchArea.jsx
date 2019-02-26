@@ -8,6 +8,7 @@ const searchArea = (props) => {
     <Aux>
       <h1>Book Finder</h1>
       <Input type="text" value={props.value} onChange={props.onChange}/>
+      <Button onClick={props.onCrossClick}>X</Button>
       <Button onClick={props.onClick}>Search</Button>
     </Aux>
   )
