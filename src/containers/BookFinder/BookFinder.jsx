@@ -52,6 +52,12 @@ class BookFinder extends Component {
     });
   };
 
+  onCrossClickHandler = () => {
+    this.setState({
+      searchQuery:''
+    });
+  }
+
   render() {
     return (
       <Aux>
@@ -59,6 +65,7 @@ class BookFinder extends Component {
           onClick={() => this.searchBook()}
           value={this.state.searchQuery}
           onChange={(e) => this.setSearchQuery(e)}
+          onCrossClick={()=> this.onCrossClickHandler()}
         />
         <ResultsArea booksData={this.state.bookResults} />
       </Aux>
