@@ -1,0 +1,42 @@
+.pageTitle {
+  color: #999;
+  font-size: 36px;
+  font-weight: bold;
+  letter-spacing: 4px;
+}
+
+.searchQuery {
+  height: 35px;
+  width: 400px;
+  border: 1px lightblue solid;
+  font-size: 20px;
+  color: #666;
+  padding-left: 5px;
+}
+
+.crossButton{
+  background: transparent;
+  border: none;
+  outline:none;
+  position: relative;
+  left: -30px;
+  font-size: 20px;
+  font-weight: bold;
+  color: darkblue;
+  cursor: pointer;
+}
+
+.searchButton {
+  cursor: pointer;
+  font-size: 15px;
+  background-color: mediumspringgreen;
+  color: #fff;
+  outline: none;
+  border: transparent;
+  padding: 10px;
+  font-weight: bold;
+  border-radius: 2px;
+  position: relative;
+  left: -25px;
+  top: -1px;
+}
