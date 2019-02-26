@@ -13,36 +13,38 @@ class BookFinder extends Component {
   };
 
   searchBook = () => {
-    axios.get(`volumes?q=${this.state.searchQuery}`).then(response => {
-      const bookData = response.data.items
-        .map(book => {
-          const bookInfo = { ...book.volumeInfo };
-          const indentifier = [...bookInfo.industryIdentifiers];
-          const url = bookInfo.infoLink;
-          const authors = typeof bookInfo.authors !== 'undefined'
-            ? bookInfo.authors.reduce((authors, author, index) => {
-              return index === 0
-                ? authors + author
-                : authors + ', ' + author;
-            }, '')
-            : 'N.A.';
-          const imgLink = bookInfo.imageLinks.thumbnail;
-          const publisher = bookInfo.publisher;
-          const title = bookInfo.title;
-          const key = indentifier[0].type + indentifier[0].identifier;
-          return {
-            bookUrl: url,
-            authors: authors,
-            imageUrl: imgLink,
-            publisher: publisher,
-            title: title,
-            key: key
-          };
+    if (this.state.searchQuery.trim() !== '') {
+      axios.get(`volumes?q=${this.state.searchQuery.trim()}`).then(response => {
+        const bookData = response.data.items
+          .map(book => {
+            const bookInfo = { ...book.volumeInfo };
+            const indentifier = [...bookInfo.industryIdentifiers];
+            const url = bookInfo.infoLink;
+            const authors = typeof bookInfo.authors !== 'undefined'
+              ? bookInfo.authors.reduce((authors, author, index) => {
+                return index === 0
+                  ? authors + author
+                  : authors + ', ' + author;
+              }, '')
+              : 'N.A.';
+            const imgLink = bookInfo.imageLinks.thumbnail;
+            const publisher = bookInfo.publisher;
+            const title = bookInfo.title;
+            const key = indentifier[0].type + indentifier[0].identifier;
+            return {
+              bookUrl: url,
+              authors: authors,
+              imageUrl: imgLink,
+              publisher: publisher,
+              title: title,
+              key: key
+            };
+          });
+        this.setState({
+          bookResults: bookData
         });
-      this.setState({
-        bookResults: bookData
       });
-    });
+    }
   }
 
   setSearchQuery = (e) => {
@@ -54,7 +56,7 @@ class BookFinder extends Component {
 
   onCrossClickHandler = () => {
     this.setState({
-      searchQuery:''
+      searchQuery: ''
     });
   }
 
@@ -65,7 +67,7 @@ class BookFinder extends Component {
           onClick={() => this.searchBook()}
           value={this.state.searchQuery}
           onChange={(e) => this.setSearchQuery(e)}
-          onCrossClick={()=> this.onCrossClickHandler()}
+          onCrossClick={() => this.onCrossClickHandler()}
         />
         <ResultsArea booksData={this.state.bookResults} />
       </Aux>
