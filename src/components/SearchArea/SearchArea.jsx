@@ -13,7 +13,7 @@ const searchArea = (props) => {
         value={props.value}
         onChange={props.onChange}
         className="searchQuery"
-        placeholder="Please type here"
+        placeholder="Search by book title or author..."
       />
       <Button onClick={props.onCrossClick} className="crossButton">X</Button>
       <Button onClick={props.onClick} className="searchButton">Search</Button>
