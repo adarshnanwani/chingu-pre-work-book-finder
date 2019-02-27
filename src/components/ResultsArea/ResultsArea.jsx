@@ -1,12 +1,27 @@
 import React from 'react';
-import Book from './Book/Book';
+import BookRow from './BookRow/BookRow';
+import './ResultsArea.css';
 
 const resultArea = (props) => {
-  const books = props.booksData.map((book) => {
-    return <Book bookData={book} key={book.key} />
-  });
+  const books = props.booksData.reduce((result, book, index) => {
+    if (index % 2 === 0) {
+      let arr = [];
+      arr.push(book);
+      result.push(arr);
+    }
+    else {
+      result[result.length - 1].push(book);
+    }
+    return result;
+  }, [])
+    .map(bookRow => {
+      return <BookRow bookRow={bookRow} />
+    });
+
+
+
   return (
-    <div>
+    <div className="resultsContainer">
       {books}
     </div>
   )
