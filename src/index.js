@@ -3,7 +3,8 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import "typeface-open-sans";
+import 'typeface-open-sans';
+import './assets/icons/css/all.css';
 
 ReactDOM.render(<App />, document.getElementById('root'));
 
