@@ -14,12 +14,17 @@
 }
 
 .searchQuery {
-  height: 35px;
-  width: 400px;
+  height: 40px;
+  width: 600px;
+  font-size: 18px;
+  color: #999;
+  padding-left: 10px;
+  border: none;
+  box-shadow: 2px 2px 8px rgba(0,0,0,0.12), 2px 2px 8px rgba(0,0,0,0.12);
+}
+
+.searchQuery:focus {
   border: 1px lightblue solid;
-  font-size: 20px;
-  color: #666;
-  padding-left: 5px;
 }
 
 .crossButton{
