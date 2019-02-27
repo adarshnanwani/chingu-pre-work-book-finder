@@ -60,6 +60,10 @@ class BookFinder extends Component {
     });
   }
 
+  seeBookDetailsHandler = (url) => {
+    window.open(url);
+  }
+
   render() {
     return (
       <Aux>
@@ -69,7 +73,9 @@ class BookFinder extends Component {
           onChange={(e) => this.setSearchQuery(e)}
           onCrossClick={() => this.onCrossClickHandler()}
         />
-        <ResultsArea booksData={this.state.bookResults} />
+        <ResultsArea 
+        booksData={this.state.bookResults}
+        seeBookDetails={this.seeBookDetailsHandler} />
       </Aux>
     );
   }

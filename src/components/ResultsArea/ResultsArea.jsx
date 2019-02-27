@@ -15,7 +15,7 @@ const resultArea = (props) => {
     return result;
   }, [])
     .map(bookRow => {
-      return <BookRow bookRow={bookRow} />
+      return <BookRow bookRow={bookRow} key={bookRow[0].bookUrl} seeBookDetails={props.seeBookDetails} />
     });
 
 
