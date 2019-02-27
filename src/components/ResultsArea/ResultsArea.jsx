@@ -4,7 +4,7 @@ import './ResultsArea.css';
 
 const resultArea = (props) => {
   let books = (<div className="beforeSearchMessage">
-    <p>Nothing Here Yet - Try Searching For A Book!</p>
+    <p><i class="far fa-frown"></i> <span className="message">Nothing Here Yet - Try Searching For A Book!</span></p>
   </div>);
   if (props.booksData.length > 0) {
     books = props.booksData.reduce((result, book, index) => {
