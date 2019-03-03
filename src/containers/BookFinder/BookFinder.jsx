@@ -25,7 +25,9 @@ class BookFinder extends Component {
           ? response.data.items
             .map(book => {
               const bookInfo = { ...book.volumeInfo };
-              const indentifier = [...bookInfo.industryIdentifiers];
+              const indentifier = typeof bookInfo.industryIdentifiers !== 'undefined'
+                ? [...bookInfo.industryIdentifiers]
+                : bookInfo.infoLink;
               const url = bookInfo.infoLink;
               const authors = typeof bookInfo.authors !== 'undefined'
                 ? bookInfo.authors.reduce((authors, author, index) => {
