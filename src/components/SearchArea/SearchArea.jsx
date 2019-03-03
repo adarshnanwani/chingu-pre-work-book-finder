@@ -5,6 +5,10 @@ import Button from '../UI/button/Button';
 import './SearchArea.css';
 
 const searchArea = (props) => {
+  let errorMessage = null;
+  if(props.emptyQuery){
+    errorMessage = <p style={{color:'red'}}>Please enter a search query and click on search</p>;
+  }
   return (
     <Aux>
       <p className="pageTitle">BOOK FINDER</p>
@@ -17,6 +21,7 @@ const searchArea = (props) => {
       />
       <Button onClick={props.onCrossClick} className="crossButton">X</Button>
       <Button onClick={props.onClick} className="searchButton">Search</Button>
+      {errorMessage}
     </Aux>
   )
 }

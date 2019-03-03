@@ -9,13 +9,15 @@ class BookFinder extends Component {
     isLoading: false,
     bookResults: [],
     error: false,
-    searchQuery: ''
+    searchQuery: '',
+    emptyQuery: false
   };
 
   searchBook = () => {
     if (this.state.searchQuery.trim() !== '') {
       this.setState({
-        isLoading: true
+        isLoading: true,
+        emptyQuery:false
       });
       axios.get(`volumes?q=${this.state.searchQuery.trim()}`).then(response => {
         const bookData = response.data.items
@@ -31,7 +33,7 @@ class BookFinder extends Component {
               }, '')
               : 'N.A.';
             const imgLink = bookInfo.imageLinks ? bookInfo.imageLinks.thumbnail : null;
-            const publisher = bookInfo.publisher !== '' ? bookInfo.publisher: 'N.A.';
+            const publisher = bookInfo.publisher !== '' ? bookInfo.publisher : 'N.A.';
             const title = bookInfo.title;
             const key = indentifier[0].type + indentifier[0].identifier;
             return {
@@ -47,6 +49,11 @@ class BookFinder extends Component {
           bookResults: bookData,
           isLoading: false
         });
+      });
+    }
+    else {
+      this.setState({
+        emptyQuery: true
       });
     }
   }
@@ -76,6 +83,7 @@ class BookFinder extends Component {
           value={this.state.searchQuery}
           onChange={(e) => this.setSearchQuery(e)}
           onCrossClick={() => this.onCrossClickHandler()}
+          emptyQuery={this.state.emptyQuery}
         />
         <ResultsArea
           booksData={this.state.bookResults}
