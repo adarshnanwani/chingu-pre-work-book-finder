@@ -14,6 +14,9 @@ class BookFinder extends Component {
 
   searchBook = () => {
     if (this.state.searchQuery.trim() !== '') {
+      this.setState({
+        isLoading: true
+      });
       axios.get(`volumes?q=${this.state.searchQuery.trim()}`).then(response => {
         const bookData = response.data.items
           .map(book => {
@@ -27,8 +30,8 @@ class BookFinder extends Component {
                   : authors + ', ' + author;
               }, '')
               : 'N.A.';
-            const imgLink = bookInfo.imageLinks.thumbnail;
-            const publisher = bookInfo.publisher;
+            const imgLink = bookInfo.imageLinks ? bookInfo.imageLinks.thumbnail : null;
+            const publisher = bookInfo.publisher !== '' ? bookInfo.publisher: 'N.A.';
             const title = bookInfo.title;
             const key = indentifier[0].type + indentifier[0].identifier;
             return {
@@ -41,7 +44,8 @@ class BookFinder extends Component {
             };
           });
         this.setState({
-          bookResults: bookData
+          bookResults: bookData,
+          isLoading: false
         });
       });
     }
@@ -73,9 +77,10 @@ class BookFinder extends Component {
           onChange={(e) => this.setSearchQuery(e)}
           onCrossClick={() => this.onCrossClickHandler()}
         />
-        <ResultsArea 
-        booksData={this.state.bookResults}
-        seeBookDetails={this.seeBookDetailsHandler} />
+        <ResultsArea
+          booksData={this.state.bookResults}
+          seeBookDetails={this.seeBookDetailsHandler}
+          isLoading={this.state.isLoading} />
       </Aux>
     );
   }
