@@ -9,7 +9,7 @@ const resultArea = (props) => {
   </div>);
   if (props.isLoading) {
     books = (<div className="beforeSearchMessage">
-      <p><FontAwesomeIcon icon="spinner" spin size="3x" /></p>
+      <p><FontAwesomeIcon icon="circle-notch" spin size="2x" /></p>
     </div>);
   }
   if (!props.isLoading && props.booksData.length > 0) {
