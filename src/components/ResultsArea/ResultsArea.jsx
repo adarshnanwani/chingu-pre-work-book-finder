@@ -12,7 +12,7 @@ const resultArea = (props) => {
       <p><FontAwesomeIcon icon="circle-notch" spin size="2x" /></p>
     </div>);
   }
-  if (!props.isLoading && props.booksData !== null) {
+  if (!props.isLoading && props.booksData !== null && props.booksData.length > 0) {
     books = props.booksData.reduce((result, book, index) => {
       if (index % 2 === 0) {
         let arr = [];
