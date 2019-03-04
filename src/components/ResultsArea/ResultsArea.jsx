@@ -1,12 +1,18 @@
 import React from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import BookRow from './BookRow/BookRow';
 import './ResultsArea.css';
 
 const resultArea = (props) => {
   let books = (<div className="beforeSearchMessage">
-    <p><i class="far fa-frown"></i> <span className="message">Nothing Here Yet - Try Searching For A Book!</span></p>
+    <p><FontAwesomeIcon icon={{ iconName: 'frown', prefix: 'far' }} /> <span className="message">Nothing Here Yet - Try Searching For A Book!</span></p>
   </div>);
-  if (props.booksData.length > 0) {
+  if (props.isLoading) {
+    books = (<div className="beforeSearchMessage">
+      <p><FontAwesomeIcon icon="circle-notch" spin size="2x" /></p>
+    </div>);
+  }
+  if (!props.isLoading && props.booksData !== null) {
     books = props.booksData.reduce((result, book, index) => {
       if (index % 2 === 0) {
         let arr = [];
@@ -21,6 +27,16 @@ const resultArea = (props) => {
       .map(bookRow => {
         return <BookRow bookRow={bookRow} key={bookRow[0].bookUrl} seeBookDetails={props.seeBookDetails} />
       });
+  }
+  else if(!props.isLoading && props.booksData === null){
+    books = (<div className="beforeSearchMessage">
+    <p><FontAwesomeIcon icon={{ iconName: 'frown', prefix: 'far' }} /> <span className="message">No results found! Try searching for something else...</span></p>
+  </div>);
+  }
+  else if(props.error === true){
+    books = (<div className="beforeSearchMessage">
+    <p><FontAwesomeIcon icon={{ iconName: 'frown', prefix: 'far' }} /> <span className="message">Something went wrong! Please try again...</span></p>
+  </div>);
   }
 
   return (
